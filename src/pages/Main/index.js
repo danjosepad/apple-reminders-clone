@@ -10,6 +10,7 @@ import {
   SideMenu,
   ReminderContent,
   Reminders,
+  Reminder,
 } from './styles';
 
 export default function Main() {
@@ -30,7 +31,11 @@ export default function Main() {
 
         <ReminderContent>
           <h2>Lembretes</h2>
-          Bla bla blá
+
+          <Reminder>
+            <input type="radio" id="male" name="gender" value="male" />
+            <label htmlFor="male">Male</label>
+          </Reminder>
         </ReminderContent>
       </Reminders>
     </Container>

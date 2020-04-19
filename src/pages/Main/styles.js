@@ -1,16 +1,5 @@
 import styled from 'styled-components';
 
-export const Title = styled.h1`
-  font-size: 24px;
-  color: ${props => (props.error ? 'red' : '#7159c1')};
-
-  small {
-    display: block;
-    font-size: 16px;
-    color: #333;
-  }
-`;
-
 export const Container = styled.div``;
 
 export const TopBar = styled.div`
@@ -24,7 +13,7 @@ export const TopBar = styled.div`
   border-bottom: 1px solid #c6c5ca;
 `;
 
-export const SideMenu = styled.div`
+export const SideMenu = styled.ul`
   width: 400px;
   height: 100vh;
   display: flex;
@@ -32,15 +21,38 @@ export const SideMenu = styled.div`
 
   border-right: 1px solid #c6c6c8;
   background: #f6f5fa;
-  padding: 20px;
+  padding: 20px 30px;
+
+  li {
+    font-size: 16px;
+    color: #424242;
+    padding: 20px;
+    list-style: none;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #c6c5ca;
+    }
+
+    &:first-child {
+      background: #eaeaec;
+      border-radius: 10px 10px 0 0;
+    }
+
+    &:last-child {
+      background: #eaeaec;
+      border-radius: 0 0 10px 10px;
+    }
+  }
 `;
 
 export const ReminderContent = styled.div`
   padding: 25px;
+  width: 100%;
 
   h2 {
     font-size: 32px;
     color: orange;
+    margin-bottom: 20px;
   }
 `;
 
@@ -57,5 +69,20 @@ export const Menu = styled.div`
 
   strong {
     color: #1576e1;
+  }
+`;
+
+export const Reminder = styled.div`
+  display: flex;
+  align-items: baseline;
+  padding: 10px;
+
+  input {
+  }
+
+  label {
+    font-size: 18px;
+    border-bottom: 1px solid #c6c5ca;
+    width: 100%;
   }
 `;
