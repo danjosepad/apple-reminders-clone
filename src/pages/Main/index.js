@@ -2,6 +2,7 @@
 import React from 'react';
 
 // Project Imports
+import { AiFillPlusCircle } from 'react-icons/ai';
 import {
   Container,
   TopBar,
@@ -27,6 +28,11 @@ export default function Main() {
         <SideMenu>
           <li>Lembretes</li>
           <li>Coisas pra ver</li>
+
+          <button type="button" onClick={() => {}}>
+            <AiFillPlusCircle size={20} color="#1576e1" />
+            Novo Lembrete
+          </button>
         </SideMenu>
 
         <ReminderContent>
@@ -35,6 +41,11 @@ export default function Main() {
           <Reminder>
             <input type="radio" id="male" name="gender" value="male" />
             <label htmlFor="male">Male</label>
+
+            <button type="button" onClick={() => {}}>
+              <AiFillPlusCircle size={20} color="orange" />
+              Nova Tarefa
+            </button>
           </Reminder>
         </ReminderContent>
       </Reminders>

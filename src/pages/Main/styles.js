@@ -43,6 +43,11 @@ export const SideMenu = styled.ul`
       border-radius: 0 0 10px 10px;
     }
   }
+
+  button {
+    border: none;
+    background: #f6f5fa;
+  }
 `;
 
 export const ReminderContent = styled.div`
@@ -84,5 +89,10 @@ export const Reminder = styled.div`
     font-size: 18px;
     border-bottom: 1px solid #c6c5ca;
     width: 100%;
+  }
+
+  button {
+    border: none;
+    background: #f6f5fa;
   }
 `;
