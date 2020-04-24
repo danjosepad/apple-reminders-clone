@@ -28,6 +28,7 @@ export const SideMenu = styled.ul`
     color: #424242;
     padding: 20px;
     list-style: none;
+    cursor: pointer;
 
     &:not(:last-child) {
       border-bottom: 1px solid #c6c5ca;
@@ -47,6 +48,8 @@ export const SideMenu = styled.ul`
   button {
     border: none;
     background: #f6f5fa;
+    position: absolute;
+    bottom: 0;
   }
 `;
 
@@ -94,5 +97,8 @@ export const Reminder = styled.div`
   button {
     border: none;
     background: #f6f5fa;
+
+    position: absolute;
+    bottom: 0;
   }
 `;

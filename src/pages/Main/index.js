@@ -1,5 +1,5 @@
 // NPM Imports
-import React from 'react';
+import React, { useState } from 'react';
 
 // Project Imports
 import { AiFillPlusCircle } from 'react-icons/ai';
@@ -13,8 +13,27 @@ import {
   Reminders,
   Reminder,
 } from './styles';
+import CreateReminderDialog from './CreateReminderDialog';
 
 export default function Main() {
+  const [reminders, setReminders] = useState([]);
+  const [reminderId, setReminderId] = useState(null);
+
+  const [show, setShow] = useState(false);
+
+  const handleModal = () => setShow(!show);
+
+  const handleAddReminder = reminder => {
+    const newReminder = {
+      name: reminder,
+      id: Math.random(),
+    };
+
+    setReminders([...reminders, newReminder]);
+    setReminderId(newReminder.id);
+    handleModal();
+  };
+
   return (
     <Container>
       <TopBar>
@@ -26,15 +45,23 @@ export default function Main() {
 
       <Reminders>
         <SideMenu>
-          <li>Lembretes</li>
-          <li>Coisas pra ver</li>
+          {reminders.map(reminder => (
+            <li key={reminder.id} onClick={() => setReminderId(reminder.id)}>
+              {reminder.name}
+            </li>
+          ))}
 
-          <button type="button" onClick={() => {}}>
+          <button type="button" onClick={handleModal}>
             <AiFillPlusCircle size={20} color="#1576e1" />
             Novo Lembrete
           </button>
         </SideMenu>
 
+        <CreateReminderDialog
+          isOpen={show}
+          onCancel={handleModal}
+          onSubmit={handleAddReminder}
+        />
         <ReminderContent>
           <h2>Lembretes</h2>
 
