@@ -1,5 +1,6 @@
 // NPM Imports
 import React, { useState, Fragment } from 'react';
+import * as R from 'ramda';
 
 // Project Imports
 import { AiFillPlusCircle } from 'react-icons/ai';
@@ -17,7 +18,7 @@ import CreateReminderDialog from './CreateReminderDialog';
 
 export default function Main() {
   const [reminders, setReminders] = useState([]);
-  const [reminderId, setReminderId] = useState(null);
+  const [currentReminder, setCurrentReminder] = useState(null);
 
   const [show, setShow] = useState(false);
 
@@ -26,16 +27,36 @@ export default function Main() {
   const handleAddReminder = reminder => {
     const newReminder = {
       name: reminder,
-      reminders: [],
+      tasks: [],
       id: Math.random(),
     };
 
     setReminders([...reminders, newReminder]);
-    setReminderId(newReminder.id);
+    setCurrentReminder(newReminder.id);
     handleModal();
   };
 
-  const listReminder = reminders.filter(reminder => reminder.id === reminderId);
+  const handleAddTask = () => {
+    const index = reminders.findIndex(r => r.id === currentReminder);
+
+    setReminders(reminder => {
+      const newTask = {
+        ...reminder[index],
+        tasks: [
+          ...reminder[index].tasks,
+          {
+            name: '',
+            id: Math.random(),
+          },
+        ],
+      };
+      return R.update(index, newTask, reminder);
+    });
+  };
+
+  const listReminder = reminders.filter(
+    reminder => reminder.id === currentReminder
+  );
 
   return (
     <Container>
@@ -49,7 +70,10 @@ export default function Main() {
       <Reminders>
         <SideMenu>
           {reminders.map(reminder => (
-            <li key={reminder.id} onClick={() => setReminderId(reminder.id)}>
+            <li
+              key={reminder.id}
+              onClick={() => setCurrentReminder(reminder.id)}
+            >
               {reminder.name}
             </li>
           ))}
@@ -67,18 +91,27 @@ export default function Main() {
         />
         <ReminderContent>
           {listReminder.map(reminder => (
-            <h2>{reminder.name}</h2>
+            <Fragment key={reminder.id}>
+              <h2>{reminder.name}</h2>
+              <Reminder>
+                {reminder.tasks.map(task => (
+                  <Fragment key={task.id}>
+                    <input
+                      type="radio"
+                      id={task.name}
+                      name="gender"
+                      value={task.name}
+                    />
+                    <label htmlFor={task.name}>{task.name}</label>
+                  </Fragment>
+                ))}
+                <button type="button" onClick={handleAddTask}>
+                  <AiFillPlusCircle size={20} color="orange" />
+                  Nova Tarefa
+                </button>
+              </Reminder>
+            </Fragment>
           ))}
-
-          <Reminder>
-            <input type="radio" id="male" name="gender" value="male" />
-            <label htmlFor="male">Male</label>
-
-            <button type="button" onClick={() => {}}>
-              <AiFillPlusCircle size={20} color="orange" />
-              Nova Tarefa
-            </button>
-          </Reminder>
         </ReminderContent>
       </Reminders>
     </Container>
