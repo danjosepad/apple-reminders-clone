@@ -1,5 +1,5 @@
 // NPM Imports
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 
 // Project Imports
 import { AiFillPlusCircle } from 'react-icons/ai';
@@ -26,6 +26,7 @@ export default function Main() {
   const handleAddReminder = reminder => {
     const newReminder = {
       name: reminder,
+      reminders: [],
       id: Math.random(),
     };
 
@@ -33,6 +34,8 @@ export default function Main() {
     setReminderId(newReminder.id);
     handleModal();
   };
+
+  const listReminder = reminders.filter(reminder => reminder.id === reminderId);
 
   return (
     <Container>
@@ -63,7 +66,9 @@ export default function Main() {
           onSubmit={handleAddReminder}
         />
         <ReminderContent>
-          <h2>Lembretes</h2>
+          {listReminder.map(reminder => (
+            <h2>{reminder.name}</h2>
+          ))}
 
           <Reminder>
             <input type="radio" id="male" name="gender" value="male" />
