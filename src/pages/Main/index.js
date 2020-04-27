@@ -25,6 +25,8 @@ export default function Main() {
   const handleModal = () => setShow(!show);
 
   const handleAddReminder = reminder => {
+    console.log(reminders);
+
     const newReminder = {
       name: reminder,
       tasks: [],
@@ -58,11 +60,25 @@ export default function Main() {
     reminder => reminder.id === currentReminder
   );
 
+  const changeTaskName = (newName, id) => {
+    const reminderIndex = reminders.findIndex(r => r.id === currentReminder);
+
+    const taskIndex = reminders[reminderIndex].tasks.findIndex(
+      task => task.id === id
+    );
+
+    const edittedReminder = [...reminders];
+
+    edittedReminder[reminderIndex].tasks[taskIndex].name = newName;
+
+    setReminders(edittedReminder);
+  };
+
   return (
     <Container>
       <TopBar>
         <Menu>
-          iCloud <strong>Lembretes</strong>
+          iCloud Clone <strong>Lembretes</strong>
         </Menu>
         <UserInfo>Daniel</UserInfo>
       </TopBar>
@@ -98,11 +114,18 @@ export default function Main() {
                   <Fragment key={task.id}>
                     <input
                       type="radio"
-                      id={task.name}
+                      id={task.id}
                       name="gender"
-                      value={task.name}
+                      value={task.id}
                     />
-                    <label htmlFor={task.name}>{task.name}</label>
+                    <span
+                      contentEditable
+                      htmlFor={task.id}
+                      onBlur={event =>
+                        changeTaskName(event.currentTarget.textContent, task.id)
+                      }
+                      dangerouslySetInnerHTML={{ __html: task.name }}
+                    />
                   </Fragment>
                 ))}
                 <button type="button" onClick={handleAddTask}>

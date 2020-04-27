@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  height: 100%;
+`;
 
 export const TopBar = styled.div`
   width: 100%;
@@ -82,13 +84,14 @@ export const Menu = styled.div`
 
 export const Reminder = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: baseline;
   padding: 10px;
 
   input {
   }
 
-  label {
+  span {
     font-size: 18px;
     border-bottom: 1px solid #c6c5ca;
     width: 100%;
