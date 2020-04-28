@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   height: 100%;
@@ -25,28 +25,6 @@ export const SideMenu = styled.ul`
   background: #f6f5fa;
   padding: 20px 30px;
 
-  li {
-    font-size: 16px;
-    color: #424242;
-    padding: 20px;
-    list-style: none;
-    cursor: pointer;
-
-    &:not(:last-child) {
-      border-bottom: 1px solid #c6c5ca;
-    }
-
-    &:first-child {
-      background: #eaeaec;
-      border-radius: 10px 10px 0 0;
-    }
-
-    &:last-child {
-      background: #eaeaec;
-      border-radius: 0 0 10px 10px;
-    }
-  }
-
   button {
     border: none;
     background: #f6f5fa;
@@ -63,6 +41,13 @@ export const ReminderContent = styled.div`
     font-size: 32px;
     color: orange;
     margin-bottom: 20px;
+  }
+
+  button {
+    border: none;
+    background: #f6f5fa;
+    position: absolute;
+    bottom: 0;
   }
 `;
 
@@ -83,25 +68,46 @@ export const Menu = styled.div`
 `;
 
 export const Reminder = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 30px 1fr;
   align-items: baseline;
   padding: 10px;
 
   input {
+    display: block;
   }
 
   span {
+    display: block;
     font-size: 18px;
     border-bottom: 1px solid #c6c5ca;
     width: 100%;
   }
+`;
 
-  button {
-    border: none;
-    background: #f6f5fa;
+export const ReminderList = styled.li`
+  font-size: 16px;
+  color: #424242;
+  padding: 20px;
+  list-style: none;
+  cursor: pointer;
 
-    position: absolute;
-    bottom: 0;
-  }
+  ${props =>
+    props.selected &&
+    css`
+      &:first-child {
+        background: #eaeaec;
+        border-radius: 10px 10px 0 0;
+        border-bottom: 1px solid #c6c5ca;
+      }
+
+      &:not(:last-child) {
+        background: #eaeaec;
+      }
+
+      &:last-child {
+        background: green;
+        border-radius: 0 0 10px 10px;
+      }
+    `}
 `;

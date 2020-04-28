@@ -13,6 +13,7 @@ import {
   ReminderContent,
   Reminders,
   Reminder,
+  ReminderList,
 } from './styles';
 import CreateReminderDialog from './CreateReminderDialog';
 
@@ -86,12 +87,13 @@ export default function Main() {
       <Reminders>
         <SideMenu>
           {reminders.map(reminder => (
-            <li
+            <ReminderList
               key={reminder.id}
               onClick={() => setCurrentReminder(reminder.id)}
+              selected={reminder.id === currentReminder}
             >
               {reminder.name}
-            </li>
+            </ReminderList>
           ))}
 
           <button type="button" onClick={handleModal}>
@@ -109,32 +111,30 @@ export default function Main() {
           {listReminder.map(reminder => (
             <Fragment key={reminder.id}>
               <h2>{reminder.name}</h2>
-              <Reminder>
-                {reminder.tasks.map(task => (
-                  <Fragment key={task.id}>
-                    <input
-                      type="radio"
-                      id={task.id}
-                      name="gender"
-                      value={task.id}
-                    />
-                    <span
-                      contentEditable
-                      htmlFor={task.id}
-                      onBlur={event =>
-                        changeTaskName(event.currentTarget.textContent, task.id)
-                      }
-                      dangerouslySetInnerHTML={{ __html: task.name }}
-                    />
-                  </Fragment>
-                ))}
-                <button type="button" onClick={handleAddTask}>
-                  <AiFillPlusCircle size={20} color="orange" />
-                  Nova Tarefa
-                </button>
-              </Reminder>
+              {reminder.tasks.map(task => (
+                <Reminder key={task.id}>
+                  <input
+                    type="radio"
+                    id={task.id}
+                    name="gender"
+                    value={task.id}
+                  />
+                  <span
+                    contentEditable
+                    htmlFor={task.id}
+                    onBlur={event =>
+                      changeTaskName(event.currentTarget.textContent, task.id)
+                    }
+                    dangerouslySetInnerHTML={{ __html: task.name }}
+                  />
+                </Reminder>
+              ))}
             </Fragment>
           ))}
+          <button type="button" onClick={handleAddTask}>
+            <AiFillPlusCircle size={20} color="orange" />
+            Nova Tarefa
+          </button>
         </ReminderContent>
       </Reminders>
     </Container>
