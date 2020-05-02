@@ -69,12 +69,32 @@ export const Menu = styled.div`
 
 export const Reminder = styled.div`
   display: grid;
-  grid-template-columns: 30px 1fr;
+  grid-template-columns: 50px 1fr;
   align-items: baseline;
   padding: 10px;
 
   input {
-    display: block;
+    display: none;
+
+    & + label {
+      display: inline-block;
+      position: relative;
+      top: -1px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin: -1px 0px 0 0;
+      vertical-align: middle;
+      background: white left top no-repeat;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    &:checked + label {
+      background: #d9534f;
+      border: 5px solid green;
+      padding: 15px;
+    }
   }
 
   span {
@@ -105,8 +125,8 @@ export const ReminderList = styled.li`
         background: #eaeaec;
       }
 
-      &:last-child {
-        background: green;
+      &:last-of-type:not() {
+        background: #eaeaec;
         border-radius: 0 0 10px 10px;
       }
     `}

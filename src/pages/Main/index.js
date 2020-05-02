@@ -50,6 +50,7 @@ export default function Main() {
           {
             name: '',
             id: Math.random(),
+            isSelected: false,
           },
         ],
       };
@@ -71,6 +72,20 @@ export default function Main() {
     const edittedReminder = [...reminders];
 
     edittedReminder[reminderIndex].tasks[taskIndex].name = newName;
+
+    setReminders(edittedReminder);
+  };
+
+  const changeTaskCheck = (check, id) => {
+    const reminderIndex = reminders.findIndex(r => r.id === currentReminder);
+
+    const taskIndex = reminders[reminderIndex].tasks.findIndex(
+      task => task.id === id
+    );
+
+    const edittedReminder = [...reminders];
+
+    edittedReminder[reminderIndex].tasks[taskIndex].isSelected = check;
 
     setReminders(edittedReminder);
   };
@@ -114,14 +129,14 @@ export default function Main() {
               {reminder.tasks.map(task => (
                 <Reminder key={task.id}>
                   <input
-                    type="radio"
+                    type="checkbox"
                     id={task.id}
-                    name="gender"
-                    value={task.id}
+                    checked
+                    onChange={e => changeTaskCheck(e.target.check, task.id)}
                   />
+                  <label />
                   <span
                     contentEditable
-                    htmlFor={task.id}
                     onBlur={event =>
                       changeTaskName(event.currentTarget.textContent, task.id)
                     }
@@ -131,10 +146,12 @@ export default function Main() {
               ))}
             </Fragment>
           ))}
-          <button type="button" onClick={handleAddTask}>
-            <AiFillPlusCircle size={20} color="orange" />
-            Nova Tarefa
-          </button>
+          {reminders[0] ? (
+            <button type="button" onClick={handleAddTask}>
+              <AiFillPlusCircle size={20} color="orange" />
+              Nova Tarefa
+            </button>
+          ) : null}
         </ReminderContent>
       </Reminders>
     </Container>
