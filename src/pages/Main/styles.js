@@ -77,23 +77,17 @@ export const Reminder = styled.div`
     display: none;
 
     & + label {
-      display: inline-block;
-      position: relative;
-      top: -1px;
-      width: 40px;
-      height: 40px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      margin: -1px 0px 0 0;
-      vertical-align: middle;
-      background: white left top no-repeat;
       border: 1px solid #ccc;
       cursor: pointer;
     }
 
     &:checked + label {
-      background: #d9534f;
-      border: 5px solid green;
-      padding: 15px;
+      background: orange;
+      border: 2px solid white;
+      box-shadow: 0px 0px 0px 2px orange;
     }
   }
 

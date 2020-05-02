@@ -26,8 +26,6 @@ export default function Main() {
   const handleModal = () => setShow(!show);
 
   const handleAddReminder = reminder => {
-    console.log(reminders);
-
     const newReminder = {
       name: reminder,
       tasks: [],
@@ -131,10 +129,10 @@ export default function Main() {
                   <input
                     type="checkbox"
                     id={task.id}
-                    checked
-                    onChange={e => changeTaskCheck(e.target.check, task.id)}
+                    checked={task.isSelected}
+                    onChange={e => changeTaskCheck(e.target.checked, task.id)}
                   />
-                  <label />
+                  <label htmlFor={task.id} />
                   <span
                     contentEditable
                     onBlur={event =>
