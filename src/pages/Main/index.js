@@ -1,5 +1,8 @@
+/* eslint-disable react/no-danger */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+
 // NPM Imports
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import * as R from 'ramda';
 
 // Project Imports
@@ -19,11 +22,30 @@ import CreateReminderDialog from './CreateReminderDialog';
 
 export default function Main() {
   const [reminders, setReminders] = useState([]);
+  const [prevReminders, setPrevReminders] = useState([]);
+
   const [currentReminder, setCurrentReminder] = useState(null);
 
   const [show, setShow] = useState(false);
 
   const handleModal = () => setShow(!show);
+
+  useEffect(() => {
+    const reminder = JSON.parse(localStorage.getItem('@Reminders:reminder'));
+
+    setReminders(reminder);
+    setCurrentReminder(reminder[0].id);
+  }, []);
+
+  // I used other variable cause the useRef usage for previousState
+  // wasn't working properly with the label onBlur
+  useEffect(() => {
+    if (prevReminders !== reminders) {
+      localStorage.setItem('@Reminders:reminder', JSON.stringify(reminders));
+
+      setPrevReminders(reminders);
+    }
+  }, [prevReminders, reminders]);
 
   const handleAddReminder = reminder => {
     const newReminder = {

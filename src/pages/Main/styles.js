@@ -119,7 +119,7 @@ export const ReminderList = styled.li`
         background: #eaeaec;
       }
 
-      &:last-of-type:not() {
+      &:last-of-type:not(:first-child) {
         background: #eaeaec;
         border-radius: 0 0 10px 10px;
       }
