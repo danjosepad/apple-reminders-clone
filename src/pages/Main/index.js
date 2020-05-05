@@ -7,6 +7,7 @@ import * as R from 'ramda';
 
 // Project Imports
 import { AiFillPlusCircle } from 'react-icons/ai';
+import { BsListUl } from 'react-icons/bs';
 import {
   Container,
   TopBar,
@@ -127,12 +128,23 @@ export default function Main() {
               onClick={() => setCurrentReminder(reminder.id)}
               selected={reminder.id === currentReminder}
             >
+              <BsListUl
+                style={{
+                  color: 'white',
+                  background: 'blue',
+                  width: 30,
+                  height: 30,
+                  padding: 5,
+                  borderRadius: 50,
+                }}
+                size={20}
+              />{' '}
               {reminder.name}
             </ReminderList>
           ))}
 
           <button type="button" onClick={handleModal}>
-            <AiFillPlusCircle size={20} color="#1576e1" />
+            <AiFillPlusCircle size={20} color="#1576e1" enableBackground />
             Novo Lembrete
           </button>
         </SideMenu>

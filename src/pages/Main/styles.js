@@ -81,10 +81,12 @@ export const Reminder = styled.div`
       height: 20px;
       border-radius: 50%;
       border: 1px solid #ccc;
+      transition: all 0.2s;
       cursor: pointer;
     }
 
     &:checked + label {
+      transition: all 0.2s;
       background: orange;
       border: 2px solid white;
       box-shadow: 0px 0px 0px 2px orange;
@@ -124,4 +126,67 @@ export const ReminderList = styled.li`
         border-radius: 0 0 10px 10px;
       }
     `}
+`;
+
+export const InputGroup = styled.div`
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-content: center;
+  justify-content: center;
+  grid-gap: 8px;
+
+  input {
+    display: none;
+
+    & + span {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    &:checked + span {
+      border: 4px solid white;
+      box-shadow: 0px 0px 0px 3px #c9c9c9;
+    }
+
+    & + span:nth-of-type(1) {
+      background: red;
+    }
+
+    & + span:nth-of-type(2) {
+      background: orange;
+    }
+
+    & + span:nth-of-type(3) {
+      background: yellow;
+    }
+
+    & + span:nth-of-type(4) {
+      background: green;
+    }
+
+    & + span:nth-of-type(5) {
+      background: #007ba7;
+    }
+
+    & + span:nth-of-type(6) {
+      background: blue;
+    }
+
+    & + span:nth-of-type(7) {
+      background: indigo;
+    }
+
+    & + span:nth-of-type(8) {
+      background: pink;
+    }
+
+    & + span:nth-of-type(9) {
+      background: purple;
+    }
+
+    & + span:nth-of-type(10) {
+      background: brown;
+    }
+  }
 `;

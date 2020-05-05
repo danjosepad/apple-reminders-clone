@@ -1,12 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
-
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import styled from 'styled-components';
+
+// Project imports
+
+import { InputGroup } from './styles';
 
 function CreateReminderDialog({ isOpen, onCancel, onSubmit }) {
   const [reminderName, setReminderName] = useState('');
+
+  const colors = [
+    'red',
+    'orange',
+    'yellow',
+    'green',
+    'cerulean',
+    'blue',
+    'indigo',
+    'pink',
+    'purple',
+    'brown',
+  ];
 
   return (
     <Modal show={isOpen} onHide={onCancel}>
@@ -24,6 +41,15 @@ function CreateReminderDialog({ isOpen, onCancel, onSubmit }) {
           onChange={e => setReminderName(e.target.value)}
         />
       </Modal.Body>
+      <InputGroup>
+        {colors.map(color => (
+          <Fragment key={color}>
+            <input type="radio" name="color" value={color} />
+            <span />
+          </Fragment>
+        ))}
+      </InputGroup>
+
       <Modal.Footer>
         <Button variant="secondary" onClick={onCancel}>
           Fechar
