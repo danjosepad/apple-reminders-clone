@@ -45,6 +45,19 @@ export const ReminderContent = styled.div`
   }
 `;
 
+export const CreateButton = styled.div`
+  border: none;
+  background: #f6f5fa;
+  position: absolute;
+  bottom: 0;
+
+  color: ${props => (props.color ? props.color : '#1576e1')};
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+  margin: auto;
+`;
+
 export const Reminders = styled.div`
   display: flex;
 `;

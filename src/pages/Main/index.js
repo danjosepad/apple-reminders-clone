@@ -19,6 +19,7 @@ import {
   Reminder,
   ReminderList,
   Title,
+  CreateButton,
 } from './styles';
 import CreateReminderDialog from './CreateReminderDialog';
 
@@ -152,10 +153,10 @@ export default function Main() {
             </ReminderList>
           ))}
 
-          <button type="button" onClick={handleModal}>
-            <AiFillPlusCircle size={20} color="#1576e1" enableBackground />
+          <CreateButton type="button" onClick={handleModal}>
+            <AiFillPlusCircle size={26} color="#1576e1" />
             Novo Lembrete
-          </button>
+          </CreateButton>
         </SideMenu>
 
         <CreateReminderDialog
@@ -186,10 +187,14 @@ export default function Main() {
                 </Reminder>
               ))}
               {reminders[0] ? (
-                <button type="button" onClick={handleAddTask}>
-                  <AiFillPlusCircle size={20} color={reminder.color} />
+                <CreateButton
+                  color={reminder.color}
+                  type="button"
+                  onClick={handleAddTask}
+                >
+                  <AiFillPlusCircle size={26} color={reminder.color} />
                   Nova Tarefa
-                </button>
+                </CreateButton>
               ) : null}
             </Fragment>
           ))}

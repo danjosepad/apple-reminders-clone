@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -11,8 +11,6 @@ import * as yup from 'yup';
 import { InputGroup, ColorLabel, Error } from './styles';
 
 function CreateReminderDialog({ isOpen, onCancel, onSubmit }) {
-  const [reminderName, setReminderName] = useState('');
-
   const colors = [
     'red',
     'orange',
