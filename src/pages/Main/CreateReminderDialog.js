@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 // Project imports
 
-import { InputGroup } from './styles';
+import { InputGroup, ColorLabel } from './styles';
 
 function CreateReminderDialog({ isOpen, onCancel, onSubmit }) {
   const [reminderName, setReminderName] = useState('');
@@ -43,10 +43,10 @@ function CreateReminderDialog({ isOpen, onCancel, onSubmit }) {
       </Modal.Body>
       <InputGroup>
         {colors.map(color => (
-          <Fragment key={color}>
+          <ColorLabel key={color}>
             <input type="radio" name="color" value={color} />
             <span />
-          </Fragment>
+          </ColorLabel>
         ))}
       </InputGroup>
 

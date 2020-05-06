@@ -131,14 +131,17 @@ export const ReminderList = styled.li`
 export const InputGroup = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  align-content: center;
-  justify-content: center;
-  grid-gap: 8px;
+  width: 550px;
+  margin: 10px 20px;
+`;
 
+export const ColorLabel = styled.label`
+  width: 10%;
   input {
     display: none;
 
     & + span {
+      display: block;
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -148,44 +151,58 @@ export const InputGroup = styled.div`
       border: 4px solid white;
       box-shadow: 0px 0px 0px 3px #c9c9c9;
     }
+  }
 
-    & + span:nth-of-type(1) {
+  &:nth-of-type(1) {
+    input + span {
       background: red;
     }
-
-    & + span:nth-of-type(2) {
+  }
+  &:nth-of-type(2) {
+    input + span {
       background: orange;
     }
-
-    & + span:nth-of-type(3) {
+  }
+  &:nth-of-type(3) {
+    input + span {
       background: yellow;
     }
+  }
 
-    & + span:nth-of-type(4) {
+  &:nth-of-type(4) {
+    input + span {
       background: green;
     }
+  }
 
-    & + span:nth-of-type(5) {
+  &:nth-of-type(5) {
+    input + span {
       background: #007ba7;
     }
+  }
 
-    & + span:nth-of-type(6) {
+  &:nth-of-type(6) {
+    input + span {
       background: blue;
     }
-
-    & + span:nth-of-type(7) {
+  }
+  &:nth-of-type(7) {
+    input + span {
       background: indigo;
     }
-
-    & + span:nth-of-type(8) {
+  }
+  &:nth-of-type(8) {
+    input + span {
       background: pink;
     }
-
-    & + span:nth-of-type(9) {
+  }
+  &:nth-of-type(9) {
+    input + span {
       background: purple;
     }
-
-    & + span:nth-of-type(10) {
+  }
+  &:nth-of-type(10) {
+    input + span {
       background: brown;
     }
   }
