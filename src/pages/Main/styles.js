@@ -37,12 +37,6 @@ export const ReminderContent = styled.div`
   padding: 25px;
   width: 100%;
 
-  h2 {
-    font-size: 32px;
-    color: orange;
-    margin-bottom: 20px;
-  }
-
   button {
     border: none;
     background: #f6f5fa;
@@ -87,9 +81,10 @@ export const Reminder = styled.div`
 
     &:checked + label {
       transition: all 0.2s;
-      background: orange;
+      background: ${props => (props.color ? props.color : 'orange')};
       border: 2px solid white;
-      box-shadow: 0px 0px 0px 2px orange;
+      box-shadow: 0px 0px 0px 2px
+        ${props => (props.color ? props.color : 'orange')};
     }
   }
 
@@ -206,4 +201,16 @@ export const ColorLabel = styled.label`
       background: brown;
     }
   }
+`;
+
+export const Error = styled.div`
+  margin: 0 20px;
+  color: red;
+  font-weight: 600;
+`;
+
+export const Title = styled.h2`
+  font-size: 32px;
+  color: ${props => (props.color ? props.color : 'red')};
+  margin-bottom: 20px;
 `;

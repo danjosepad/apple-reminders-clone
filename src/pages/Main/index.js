@@ -18,6 +18,7 @@ import {
   Reminders,
   Reminder,
   ReminderList,
+  Title,
 } from './styles';
 import CreateReminderDialog from './CreateReminderDialog';
 
@@ -34,8 +35,10 @@ export default function Main() {
   useEffect(() => {
     const reminder = JSON.parse(localStorage.getItem('@Reminders:reminder'));
 
-    setReminders(reminder);
-    setCurrentReminder(reminder[0].id);
+    if (reminder) {
+      setReminders(reminder);
+      setCurrentReminder(reminder[0].id);
+    }
   }, []);
 
   // I used other variable cause the useRef usage for previousState
@@ -48,16 +51,22 @@ export default function Main() {
     }
   }, [prevReminders, reminders]);
 
-  const handleAddReminder = reminder => {
+  const handleAddReminder = (values, { setSubmitting }) => {
+    setSubmitting(true);
+    const { reminderName, color } = values;
+
     const newReminder = {
-      name: reminder,
+      name: reminderName,
       tasks: [],
+      color,
       id: Math.random(),
     };
 
     setReminders([...reminders, newReminder]);
     setCurrentReminder(newReminder.id);
+
     handleModal();
+    setSubmitting(false);
   };
 
   const handleAddTask = () => {
@@ -131,7 +140,7 @@ export default function Main() {
               <BsListUl
                 style={{
                   color: 'white',
-                  background: 'blue',
+                  background: reminder.color,
                   width: 30,
                   height: 30,
                   padding: 5,
@@ -157,9 +166,9 @@ export default function Main() {
         <ReminderContent>
           {listReminder.map(reminder => (
             <Fragment key={reminder.id}>
-              <h2>{reminder.name}</h2>
+              <Title color={reminder.color}>{reminder.name}</Title>
               {reminder.tasks.map(task => (
-                <Reminder key={task.id}>
+                <Reminder color={reminder.color} key={task.id}>
                   <input
                     type="checkbox"
                     id={task.id}
@@ -176,14 +185,14 @@ export default function Main() {
                   />
                 </Reminder>
               ))}
+              {reminders[0] ? (
+                <button type="button" onClick={handleAddTask}>
+                  <AiFillPlusCircle size={20} color={reminder.color} />
+                  Nova Tarefa
+                </button>
+              ) : null}
             </Fragment>
           ))}
-          {reminders[0] ? (
-            <button type="button" onClick={handleAddTask}>
-              <AiFillPlusCircle size={20} color="orange" />
-              Nova Tarefa
-            </button>
-          ) : null}
         </ReminderContent>
       </Reminders>
     </Container>
