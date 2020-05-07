@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -10,7 +10,20 @@ import * as yup from 'yup';
 
 import { InputGroup, ColorLabel, Error } from './styles';
 
-function CreateReminderDialog({ isOpen, onCancel, onSubmit }) {
+function EditReminderDialog({ isOpen, reminder, onCancel, onSubmit }) {
+  const [currentReminder, setCurrentReminder] = useState({
+    id: '',
+    name: '',
+    color: '',
+    tasks: [],
+  });
+
+  useEffect(() => {
+    if (reminder) {
+      setCurrentReminder(reminder);
+    }
+  }, [reminder]);
+
   const colors = [
     'red',
     'orange',
@@ -25,8 +38,8 @@ function CreateReminderDialog({ isOpen, onCancel, onSubmit }) {
   ];
 
   const initialValues = {
-    reminderName: '',
-    color: '',
+    reminderName: currentReminder.name,
+    color: currentReminder.color,
   };
 
   const validationSchema = yup.object({
@@ -37,9 +50,9 @@ function CreateReminderDialog({ isOpen, onCancel, onSubmit }) {
   return (
     <Modal show={isOpen} onHide={onCancel}>
       <Modal.Header closeButton>
-        <Modal.Title>Novo Lembrete</Modal.Title>
+        <Modal.Title>Editar lembrete</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Digite um nome para seu novo lembrete</Modal.Body>
+      <Modal.Body>Digite um novo nome para seu lembrete</Modal.Body>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -64,7 +77,7 @@ function CreateReminderDialog({ isOpen, onCancel, onSubmit }) {
               <Button variant="secondary" onClick={onCancel}>
                 Fechar
               </Button>
-              <Button disabled={isSubmitting} type="submit" variant="primary">
+              <Button type="submit" variant="primary">
                 Salvar
               </Button>
             </Modal.Footer>
@@ -74,15 +87,17 @@ function CreateReminderDialog({ isOpen, onCancel, onSubmit }) {
     </Modal>
   );
 }
-CreateReminderDialog.propTypes = {
+EditReminderDialog.propTypes = {
   isOpen: PropTypes.bool,
+  reminder: PropTypes.any,
   onCancel: PropTypes.func,
   onSubmit: PropTypes.func,
 };
 
-CreateReminderDialog.defaultProps = {
+EditReminderDialog.defaultProps = {
   isOpen: false,
+  reminder: {},
   onCancel: () => {},
   onSubmit: () => {},
 };
-export default CreateReminderDialog;
+export default EditReminderDialog;

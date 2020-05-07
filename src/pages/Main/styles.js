@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { BsThreeDots } from 'react-icons/bs';
 
 export const Container = styled.div`
   height: 100%;
@@ -226,4 +227,16 @@ export const Title = styled.h2`
   font-size: 32px;
   color: ${props => (props.color ? props.color : 'red')};
   margin-bottom: 20px;
+`;
+
+export const ReminderTopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const SBsThreeDots = styled(BsThreeDots)`
+  background: #efefef;
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
 `;

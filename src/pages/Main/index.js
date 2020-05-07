@@ -20,8 +20,11 @@ import {
   ReminderList,
   Title,
   CreateButton,
+  ReminderTopBar,
+  SBsThreeDots,
 } from './styles';
 import CreateReminderDialog from './CreateReminderDialog';
+import EditReminderDialog from './EditReminderDialog';
 
 export default function Main() {
   const [reminders, setReminders] = useState([]);
@@ -29,16 +32,20 @@ export default function Main() {
 
   const [currentReminder, setCurrentReminder] = useState(null);
 
-  const [show, setShow] = useState(false);
+  // Reminder control
+  const [isCreating, setIsCreating] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const handleModal = () => setShow(!show);
+  const handleCreateReminderModal = () => setIsCreating(!isCreating);
+  const handleEditReminderModal = () => setIsEditing(!isEditing);
 
   useEffect(() => {
     const reminder = JSON.parse(localStorage.getItem('@Reminders:reminder'));
 
-    if (reminder) {
+    if (reminder[0]) {
       setReminders(reminder);
-      setCurrentReminder(reminder[0].id);
+
+      setCurrentReminder(reminder[0]);
     }
   }, []);
 
@@ -64,14 +71,14 @@ export default function Main() {
     };
 
     setReminders([...reminders, newReminder]);
-    setCurrentReminder(newReminder.id);
+    setCurrentReminder(newReminder);
 
-    handleModal();
+    handleCreateReminderModal();
     setSubmitting(false);
   };
 
   const handleAddTask = () => {
-    const index = reminders.findIndex(r => r.id === currentReminder);
+    const index = reminders.findIndex(r => r.id === currentReminder.id);
 
     setReminders(reminder => {
       const newTask = {
@@ -90,11 +97,11 @@ export default function Main() {
   };
 
   const listReminder = reminders.filter(
-    reminder => reminder.id === currentReminder
+    reminder => reminder.id === currentReminder.id
   );
 
   const changeTaskName = (newName, id) => {
-    const reminderIndex = reminders.findIndex(r => r.id === currentReminder);
+    const reminderIndex = reminders.findIndex(r => r.id === currentReminder.id);
 
     const taskIndex = reminders[reminderIndex].tasks.findIndex(
       task => task.id === id
@@ -108,7 +115,7 @@ export default function Main() {
   };
 
   const changeTaskCheck = (check, id) => {
-    const reminderIndex = reminders.findIndex(r => r.id === currentReminder);
+    const reminderIndex = reminders.findIndex(r => r.id === currentReminder.id);
 
     const taskIndex = reminders[reminderIndex].tasks.findIndex(
       task => task.id === id
@@ -119,6 +126,21 @@ export default function Main() {
     edittedReminder[reminderIndex].tasks[taskIndex].isSelected = check;
 
     setReminders(edittedReminder);
+  };
+
+  const handleEditReminder = ({ reminderName, color }) => {
+    const index = reminders.findIndex(r => r.id === currentReminder.id);
+
+    const edittedReminder = {
+      ...currentReminder,
+      name: reminderName,
+      color,
+    };
+
+    setReminders(rems => R.update(index, edittedReminder, rems));
+    setCurrentReminder(edittedReminder);
+
+    handleEditReminderModal();
   };
 
   return (
@@ -135,8 +157,8 @@ export default function Main() {
           {reminders.map(reminder => (
             <ReminderList
               key={reminder.id}
-              onClick={() => setCurrentReminder(reminder.id)}
-              selected={reminder.id === currentReminder}
+              onClick={() => setCurrentReminder(reminder)}
+              selected={reminder.id === currentReminder.id}
             >
               <BsListUl
                 style={{
@@ -153,21 +175,24 @@ export default function Main() {
             </ReminderList>
           ))}
 
-          <CreateButton type="button" onClick={handleModal}>
+          <CreateButton type="button" onClick={handleCreateReminderModal}>
             <AiFillPlusCircle size={26} color="#1576e1" />
             Novo Lembrete
           </CreateButton>
         </SideMenu>
 
-        <CreateReminderDialog
-          isOpen={show}
-          onCancel={handleModal}
-          onSubmit={handleAddReminder}
-        />
         <ReminderContent>
           {listReminder.map(reminder => (
             <Fragment key={reminder.id}>
-              <Title color={reminder.color}>{reminder.name}</Title>
+              <ReminderTopBar>
+                <Title color={reminder.color}>{reminder.name}</Title>
+                <SBsThreeDots
+                  size={26}
+                  color="#2d6fbb"
+                  onClick={handleEditReminderModal}
+                />
+              </ReminderTopBar>
+
               {reminder.tasks.map(task => (
                 <Reminder color={reminder.color} key={task.id}>
                   <input
@@ -200,6 +225,18 @@ export default function Main() {
           ))}
         </ReminderContent>
       </Reminders>
+
+      <CreateReminderDialog
+        isOpen={isCreating}
+        onCancel={handleCreateReminderModal}
+        onSubmit={handleAddReminder}
+      />
+      <EditReminderDialog
+        isOpen={isEditing}
+        reminder={currentReminder}
+        onCancel={handleEditReminderModal}
+        onSubmit={handleEditReminder}
+      />
     </Container>
   );
 }
