@@ -61,6 +61,7 @@ export default function Main() {
 
   const handleAddReminder = (values, { setSubmitting }) => {
     setSubmitting(true);
+
     const { reminderName, color } = values;
 
     const newReminder = {
@@ -79,6 +80,16 @@ export default function Main() {
 
   const handleAddTask = () => {
     const index = reminders.findIndex(r => r.id === currentReminder.id);
+
+    const lastTask = R.pipe(
+      R.prop('tasks'),
+      R.last(R.__),
+      R.prop('name')
+    )(reminders[index]);
+
+    if (!lastTask) {
+      return;
+    }
 
     setReminders(reminder => {
       const newTask = {
