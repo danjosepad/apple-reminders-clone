@@ -29,7 +29,7 @@ function EditReminderDialog({ isOpen, reminder, onCancel, onSubmit }) {
     'orange',
     'yellow',
     'green',
-    'cerulean',
+    '#007ba8',
     'blue',
     'indigo',
     'pink',
@@ -89,7 +89,16 @@ function EditReminderDialog({ isOpen, reminder, onCancel, onSubmit }) {
 }
 EditReminderDialog.propTypes = {
   isOpen: PropTypes.bool,
-  reminder: PropTypes.any,
+  reminder: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    color: PropTypes.string,
+    tasks: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      isSelected: PropTypes.bool,
+    }),
+  }),
   onCancel: PropTypes.func,
   onSubmit: PropTypes.func,
 };

@@ -16,7 +16,7 @@ function CreateReminderDialog({ isOpen, onCancel, onSubmit }) {
     'orange',
     'yellow',
     'green',
-    'cerulean',
+    '#007ba8',
     'blue',
     'indigo',
     'pink',

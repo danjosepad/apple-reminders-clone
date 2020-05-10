@@ -81,14 +81,17 @@ export default function Main() {
   const handleAddTask = () => {
     const index = reminders.findIndex(r => r.id === currentReminder.id);
 
-    const lastTask = R.pipe(
-      R.prop('tasks'),
-      R.last(R.__),
-      R.prop('name')
-    )(reminders[index]);
+    // Check if reminder has at least one task
+    if (reminders[index].tasks[0]) {
+      const lastTask = R.pipe(
+        R.prop('tasks'),
+        R.last(R.__),
+        R.prop('name')
+      )(reminders[index]);
 
-    if (!lastTask) {
-      return;
+      if (!lastTask) {
+        return;
+      }
     }
 
     setReminders(reminder => {
