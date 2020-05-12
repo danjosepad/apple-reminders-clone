@@ -2,24 +2,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 // NPM Imports
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as R from 'ramda';
 
 // Project Imports
-import { AiFillPlusCircle } from 'react-icons/ai';
-import {
-  Container,
-  TopBar,
-  Menu,
-  UserInfo,
-  ReminderContent,
-  Reminders,
-  Reminder,
-  Title,
-  ReminderTopBar,
-  SBsThreeDots,
-  CreateButton,
-} from './styles';
+import { Container, TopBar, Menu, UserInfo, Reminders } from './styles';
 import CreateReminderDialog from './CreateReminderDialog';
 import EditReminderDialog from './EditReminderDialog';
 
@@ -156,6 +143,7 @@ export default function Main() {
   const onSelectReminder = rem => {
     setCurrentReminder(rem);
   };
+
   return (
     <Container>
       <TopBar>

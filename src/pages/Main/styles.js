@@ -15,18 +15,6 @@ export const TopBar = styled.div`
   border-bottom: 1px solid #c6c5ca;
 `;
 
-export const ReminderContent = styled.div`
-  padding: 25px;
-  width: 100%;
-
-  button {
-    border: none;
-    background: #f6f5fa;
-    position: absolute;
-    bottom: 0;
-  }
-`;
-
 export const Reminders = styled.div`
   display: flex;
 `;
@@ -48,19 +36,6 @@ export const InputGroup = styled.div`
   grid-template-columns: repeat(12, 1fr);
   width: 550px;
   margin: 10px 20px;
-`;
-
-export const CreateButton = styled.div`
-  border: none;
-  background: #f6f5fa;
-  position: absolute;
-  bottom: 0;
-
-  color: ${props => (props.color ? props.color : '#1576e1')};
-  font-size: 16px;
-  font-weight: 300;
-  text-align: center;
-  margin: auto;
 `;
 
 export const ColorLabel = styled.label`

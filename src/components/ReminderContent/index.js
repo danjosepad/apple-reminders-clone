@@ -12,6 +12,7 @@ import {
   CreateButton,
   ReminderContent,
 } from './styles';
+import { reminderProps } from '../../prop-types';
 
 function ReminderInfo({
   reminder,
@@ -64,16 +65,34 @@ function ReminderInfo({
   );
 }
 
-ReminderInfo.defaultProps = {
-  reminder: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    color: PropTypes.string,
-    tasks: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      isSelected: PropTypes.bool,
-    }),
-  }),
+ReminderInfo.propTypes = {
+  reminder: reminderProps,
+  reminders: PropTypes.arrayOf(reminderProps),
+  onEdit: PropTypes.func,
+  onAddTask: PropTypes.func,
+  onCheck: PropTypes.func,
+  onChangeName: PropTypes.func,
 };
+
+ReminderInfo.defaultProps = {
+  reminder: {
+    id: '',
+    name: '',
+    color: '',
+    tasks: [],
+  },
+  reminders: [
+    {
+      id: '',
+      name: '',
+      color: '',
+      tasks: [],
+    },
+  ],
+  onEdit: () => {},
+  onAddTask: () => {},
+  onCheck: () => {},
+  onChangeName: () => {},
+};
+
 export default ReminderInfo;

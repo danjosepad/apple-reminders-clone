@@ -9,6 +9,7 @@ import * as yup from 'yup';
 // Project imports
 
 import { InputGroup, ColorLabel, Error } from './styles';
+import { reminderProps } from '../../prop-types';
 
 function EditReminderDialog({ isOpen, reminder, onCancel, onSubmit }) {
   const [currentReminder, setCurrentReminder] = useState({
@@ -89,16 +90,7 @@ function EditReminderDialog({ isOpen, reminder, onCancel, onSubmit }) {
 }
 EditReminderDialog.propTypes = {
   isOpen: PropTypes.bool,
-  reminder: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    color: PropTypes.string,
-    tasks: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      isSelected: PropTypes.bool,
-    }),
-  }),
+  reminder: reminderProps,
   onCancel: PropTypes.func,
   onSubmit: PropTypes.func,
 };

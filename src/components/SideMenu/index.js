@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { BsListUl } from 'react-icons/bs';
 import { MenuContent, CreateButton, ReminderList } from './styles';
+import { reminderProps } from '../../prop-types';
 
 function SideMenu({ reminders, currentReminder, onSelectReminder, onCreate }) {
   return (
@@ -13,7 +14,7 @@ function SideMenu({ reminders, currentReminder, onSelectReminder, onCreate }) {
       {reminders.map(reminder => (
         <ReminderList
           key={reminder.id}
-          onClick={onSelectReminder(reminder)}
+          onClick={() => onSelectReminder(reminder)}
           selected={reminder.id === currentReminder.id}
         >
           <BsListUl
@@ -40,26 +41,8 @@ function SideMenu({ reminders, currentReminder, onSelectReminder, onCreate }) {
 }
 
 SideMenu.propTypes = {
-  reminders: PropTypes.arrayOf({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    color: PropTypes.string,
-    tasks: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      isSelected: PropTypes.bool,
-    }),
-  }),
-  currentReminder: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    color: PropTypes.string,
-    tasks: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      isSelected: PropTypes.bool,
-    }),
-  }),
+  reminders: PropTypes.arrayOf(reminderProps),
+  currentReminder: reminderProps,
   onSelectReminder: PropTypes.func,
   onCreate: PropTypes.func,
 };
