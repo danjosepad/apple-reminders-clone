@@ -7,24 +7,24 @@ import * as R from 'ramda';
 
 // Project Imports
 import { AiFillPlusCircle } from 'react-icons/ai';
-import { BsListUl } from 'react-icons/bs';
 import {
   Container,
   TopBar,
   Menu,
   UserInfo,
-  SideMenu,
   ReminderContent,
   Reminders,
   Reminder,
-  ReminderList,
   Title,
-  CreateButton,
   ReminderTopBar,
   SBsThreeDots,
+  CreateButton,
 } from './styles';
 import CreateReminderDialog from './CreateReminderDialog';
 import EditReminderDialog from './EditReminderDialog';
+
+import SideMenu from '../../components/SideMenu';
+import ReminderInfo from '../../components/ReminderContent';
 
 export default function Main() {
   const [reminders, setReminders] = useState([]);
@@ -110,10 +110,6 @@ export default function Main() {
     });
   };
 
-  const listReminder = reminders.filter(
-    reminder => reminder.id === currentReminder.id
-  );
-
   const changeTaskName = (newName, id) => {
     const reminderIndex = reminders.findIndex(r => r.id === currentReminder.id);
 
@@ -157,6 +153,9 @@ export default function Main() {
     handleEditReminderModal();
   };
 
+  const onSelectReminder = rem => {
+    setCurrentReminder(rem);
+  };
   return (
     <Container>
       <TopBar>
@@ -167,77 +166,21 @@ export default function Main() {
       </TopBar>
 
       <Reminders>
-        <SideMenu>
-          {reminders.map(reminder => (
-            <ReminderList
-              key={reminder.id}
-              onClick={() => setCurrentReminder(reminder)}
-              selected={reminder.id === currentReminder.id}
-            >
-              <BsListUl
-                style={{
-                  color: 'white',
-                  background: reminder.color,
-                  width: 30,
-                  height: 30,
-                  padding: 5,
-                  borderRadius: 50,
-                }}
-                size={20}
-              />{' '}
-              {reminder.name}
-            </ReminderList>
-          ))}
+        <SideMenu
+          reminders={reminders}
+          currentReminder={currentReminder}
+          onSelectReminder={onSelectReminder}
+          onCreate={handleCreateReminderModal}
+        />
 
-          <CreateButton type="button" onClick={handleCreateReminderModal}>
-            <AiFillPlusCircle size={26} color="#1576e1" />
-            Novo Lembrete
-          </CreateButton>
-        </SideMenu>
-
-        <ReminderContent>
-          {listReminder.map(reminder => (
-            <Fragment key={reminder.id}>
-              <ReminderTopBar>
-                <Title color={reminder.color}>{reminder.name}</Title>
-                <SBsThreeDots
-                  size={26}
-                  color="#2d6fbb"
-                  onClick={handleEditReminderModal}
-                />
-              </ReminderTopBar>
-
-              {reminder.tasks.map(task => (
-                <Reminder color={reminder.color} key={task.id}>
-                  <input
-                    type="checkbox"
-                    id={task.id}
-                    checked={task.isSelected}
-                    onChange={e => changeTaskCheck(e.target.checked, task.id)}
-                  />
-                  <label htmlFor={task.id} />
-                  <span
-                    contentEditable
-                    onBlur={event =>
-                      changeTaskName(event.currentTarget.textContent, task.id)
-                    }
-                    dangerouslySetInnerHTML={{ __html: task.name }}
-                  />
-                </Reminder>
-              ))}
-              {reminders[0] ? (
-                <CreateButton
-                  color={reminder.color}
-                  type="button"
-                  onClick={handleAddTask}
-                >
-                  <AiFillPlusCircle size={26} color={reminder.color} />
-                  Nova Tarefa
-                </CreateButton>
-              ) : null}
-            </Fragment>
-          ))}
-        </ReminderContent>
+        <ReminderInfo
+          reminder={currentReminder}
+          reminders={reminders}
+          onEdit={handleEditReminderModal}
+          onAddTask={handleAddTask}
+          onChangeName={changeTaskName}
+          onCheck={changeTaskCheck}
+        />
       </Reminders>
 
       <CreateReminderDialog

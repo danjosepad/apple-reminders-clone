@@ -1,5 +1,4 @@
-import styled, { css } from 'styled-components';
-import { BsThreeDots } from 'react-icons/bs';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   height: 100%;
@@ -16,24 +15,6 @@ export const TopBar = styled.div`
   border-bottom: 1px solid #c6c5ca;
 `;
 
-export const SideMenu = styled.ul`
-  width: 400px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-
-  border-right: 1px solid #c6c6c8;
-  background: #f6f5fa;
-  padding: 20px 30px;
-
-  button {
-    border: none;
-    background: #f6f5fa;
-    position: absolute;
-    bottom: 0;
-  }
-`;
-
 export const ReminderContent = styled.div`
   padding: 25px;
   width: 100%;
@@ -44,19 +25,6 @@ export const ReminderContent = styled.div`
     position: absolute;
     bottom: 0;
   }
-`;
-
-export const CreateButton = styled.div`
-  border: none;
-  background: #f6f5fa;
-  position: absolute;
-  bottom: 0;
-
-  color: ${props => (props.color ? props.color : '#1576e1')};
-  font-size: 16px;
-  font-weight: 300;
-  text-align: center;
-  margin: auto;
 `;
 
 export const Reminders = styled.div`
@@ -75,73 +43,24 @@ export const Menu = styled.div`
   }
 `;
 
-export const Reminder = styled.div`
-  display: grid;
-  grid-template-columns: 50px 1fr;
-  align-items: baseline;
-  padding: 10px;
-
-  input {
-    display: none;
-
-    & + label {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      border: 1px solid #ccc;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-
-    &:checked + label {
-      transition: all 0.2s;
-      background: ${props => (props.color ? props.color : 'orange')};
-      border: 2px solid white;
-      box-shadow: 0px 0px 0px 2px
-        ${props => (props.color ? props.color : 'orange')};
-    }
-  }
-
-  span {
-    display: block;
-    font-size: 18px;
-    border-bottom: 1px solid #c6c5ca;
-    width: 100%;
-  }
-`;
-
-export const ReminderList = styled.li`
-  font-size: 16px;
-  color: #424242;
-  padding: 20px;
-  list-style: none;
-  cursor: pointer;
-
-  ${props =>
-    props.selected &&
-    css`
-      &:first-child {
-        background: #eaeaec;
-        border-radius: 10px 10px 0 0;
-        border-bottom: 1px solid #c6c5ca;
-      }
-
-      &:not(:last-child) {
-        background: #eaeaec;
-      }
-
-      &:last-of-type:not(:first-child) {
-        background: #eaeaec;
-        border-radius: 0 0 10px 10px;
-      }
-    `}
-`;
-
 export const InputGroup = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   width: 550px;
   margin: 10px 20px;
+`;
+
+export const CreateButton = styled.div`
+  border: none;
+  background: #f6f5fa;
+  position: absolute;
+  bottom: 0;
+
+  color: ${props => (props.color ? props.color : '#1576e1')};
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+  margin: auto;
 `;
 
 export const ColorLabel = styled.label`
@@ -221,22 +140,4 @@ export const Error = styled.div`
   margin: 0 20px;
   color: red;
   font-weight: 600;
-`;
-
-export const Title = styled.h2`
-  font-size: 32px;
-  color: ${props => (props.color ? props.color : 'red')};
-  margin-bottom: 20px;
-`;
-
-export const ReminderTopBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const SBsThreeDots = styled(BsThreeDots)`
-  background: #efefef;
-  border-radius: 50%;
-  padding: 2px;
-  cursor: pointer;
 `;
