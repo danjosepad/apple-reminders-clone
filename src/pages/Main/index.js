@@ -18,6 +18,7 @@ export default function Main() {
   const [prevReminders, setPrevReminders] = useState([]);
 
   const [currentReminder, setCurrentReminder] = useState(null);
+  const [listFilteredReminder, setListFilteredReminder] = useState(null);
 
   // Reminder control
   const [isCreating, setIsCreating] = useState(false);
@@ -29,7 +30,7 @@ export default function Main() {
   useEffect(() => {
     const reminder = JSON.parse(localStorage.getItem('@Reminders:reminder'));
 
-    if (reminder[0]) {
+    if (reminder) {
       setReminders(reminder);
 
       setCurrentReminder(reminder[0]);
@@ -39,12 +40,20 @@ export default function Main() {
   // I used other variable cause the useRef usage for previousState
   // wasn't working properly with the label onBlur
   useEffect(() => {
+    if (currentReminder) {
+      const filteredReminderBySelected = reminders.filter(
+        reminder => reminder.id === currentReminder.id
+      );
+
+      setListFilteredReminder(filteredReminderBySelected[0]);
+    }
+
     if (prevReminders !== reminders) {
       localStorage.setItem('@Reminders:reminder', JSON.stringify(reminders));
 
       setPrevReminders(reminders);
     }
-  }, [prevReminders, reminders]);
+  }, [currentReminder, prevReminders, reminders]);
 
   const handleAddReminder = (values, { setSubmitting }) => {
     setSubmitting(true);
@@ -70,6 +79,7 @@ export default function Main() {
 
     // Check if reminder has at least one task
     if (reminders[index].tasks[0]) {
+      // Check if the last task has an value
       const lastTask = R.pipe(
         R.prop('tasks'),
         R.last(R.__),
@@ -162,7 +172,7 @@ export default function Main() {
         />
 
         <ReminderInfo
-          reminder={currentReminder}
+          reminder={listFilteredReminder}
           reminders={reminders}
           onEdit={handleEditReminderModal}
           onAddTask={handleAddTask}
