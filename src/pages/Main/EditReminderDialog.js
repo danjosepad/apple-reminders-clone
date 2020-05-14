@@ -59,7 +59,7 @@ function EditReminderDialog({ isOpen, reminder, onCancel, onSubmit }) {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {({ isSubmitting }) => (
+        {() => (
           <Form>
             <Modal.Body>
               <Field name="reminderName" as={FormControl} />
